@@ -5,7 +5,6 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
-# Download punkt and stopwords if not already available
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
