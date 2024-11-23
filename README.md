@@ -1,8 +1,7 @@
 
 # Spam Email Detection
 
-## Overview
-This project focuses on detecting spam emails using machine learning techniques. Various preprocessing steps, exploratory data analysis (EDA), and machine learning models were used to classify emails as spam or non-spam. The final model utilizes a VotingClassifier for optimal performance by combining the strengths of multiple algorithms.
+This project focuses on detecting spam emails using machine learning techniques. Multiple classification models were implemented and evaluated based on accuracy and precision metrics. The final model leverages the `Multinomial Naive Bayes` algorithm combined with a `TfidfVectorizer` for feature extraction. Additionally, advanced techniques like stacking and voting classifiers were used to further enhance performance.
 
 ---
 
@@ -15,15 +14,28 @@ This project focuses on detecting spam emails using machine learning techniques.
 6. [Results](#results)
 7. [Setup and Requirements](#setup-and-requirements)
 8. [Usage](#usage)
-9. [Acknowledgments](#acknowledgments)
-
+9. [Acknowledgments](#Acknowledgements)
+10. [Future Improvements](#future-work)
 ---
 
 ## Features
-- **Text Preprocessing**: Tokenization, stemming, stop-word removal, and vectorization (TF-IDF and Bag of Words).
-- **EDA**: Visualizations of word distributions and patterns in spam vs. non-spam emails.
-- **Model Comparisons**: Implemented and evaluated various algorithms including Naive Bayes, SVM, Random Forest, and more.
-- **Ensemble Learning**: Used VotingClassifier for final model selection.
+
+1. **Preprocessing:**
+   - Tokenization
+   - Stopword removal
+   - Stemming using PorterStemmer
+
+2. **EDA (Exploratory Data Analysis):**
+   - Analyzed dataset characteristics (number of characters, words, sentences).
+   - Visualized spam and ham (non-spam) word distributions using word clouds and histograms.
+
+3. **Model Evaluation:**
+   - Accuracy and precision metrics for multiple classifiers.
+   - Comparative analysis of various machine learning models.
+
+4. **Advanced Methods:**
+   - Voting Classifier: Combines predictions of multiple models using a soft voting mechanism.
+   - Stacking Classifier: Uses predictions of base models as input features for a final estimator.
 
 ---
 
@@ -33,13 +45,14 @@ The dataset contains labeled emails classified as:
 - `1`: Spam  
 
 ### Statistics:
-- Total emails: **[Include count from your dataset]**
-- Ham emails: **[Include count]**
-- Spam emails: **[Include count]**
+- Total emails: **[5572]**
+- Ham emails: **[4848]**
+- Spam emails: **[724]**
 
 ---
 
 ## Preprocessing
+
 1. **Data Cleaning**:
    - Removed punctuation, special characters, and converted text to lowercase.
 2. **Tokenization**:
@@ -53,29 +66,29 @@ The dataset contains labeled emails classified as:
 
 ## Models and Evaluation
 ### Models Tested:
-1. **Naive Bayes (Multinomial, Gaussian, Bernoulli)**  
-   - Accuracy: **[Include score]**
-   - Precision: **[Include score]**
 
-2. **Support Vector Machine (SVM)**  
-   - Accuracy: **[Include score]**
-   - Precision: **[Include score]**
+| Algorithm  | Accuracy | Precision |
+|------------|----------|-----------|
+| SVC        | 97.58%   | 97.48%    |
+| K-Neighbors| 90.52%   | 100.00%   |
+| Naive Bayes| 97.10%   | 100.00%   |
+| Decision Tree | 93.23%| 83.33%    |
+| Logistic Regression | 95.84% | 97.03% |
+| Random Forest | 97.58% | 98.29%    |
+| AdaBoost   | 96.03%   | 92.92%    |
+| Bagging Classifier | 95.84% | 86.82% |
+| Extra Trees| 97.49%   | 97.46%    |
+| GBDT       | 94.68%   | 91.91%    |
+| XGBoost    | 96.71%   | 92.62%    |
 
-3. **Logistic Regression**  
-   - Accuracy: **[Include score]**
-   - Precision: **[Include score]**
+### Advanced Techniques
 
-4. **Decision Tree**  
-   - Accuracy: **[Include score]**
-   - Precision: **[Include score]**
+| Method         | Accuracy | Precision |
+|----------------|----------|-----------|
+| Voting Classifier | 98.16% | 99.17%    |
+| Stacking Classifier | 97.78% | 93.23%    |
 
-5. **Random Forest**  
-   - Accuracy: **[Include score]**
-   - Precision: **[Include score]**
-
-6. **VotingClassifier** (Final Model)  
-   - Accuracy: **[Include score]**
-   - Precision: **[Include score]**
+---
 
 ### Performance Metrics:
 - Accuracy
@@ -88,15 +101,13 @@ The dataset contains labeled emails classified as:
 
 ## Final Model
 **VotingClassifier (Soft Voting)**  
-The final model combines predictions from SVM, Naive Bayes, and Random Forest classifiers to achieve the best performance.  
+The final model combines predictions from SVM, Naive Bayes, and Random Forest classifiers to achieve the best performance.
 
 ---
 
 ## Results
-- Achieved an accuracy of **[Include final accuracy]** on the test set.
-- Precision for spam detection: **[Include precision]**.
-
----
+- Achieved an accuracy of **[97.7%]** on the test set.
+- Precision for spam detection: **[96.3%]**.
 
 ## Setup and Requirements
 ### Prerequisites
@@ -111,37 +122,43 @@ The final model combines predictions from SVM, Naive Bayes, and Random Forest cl
   - wordcloud
   - xgboost
 
-### Installation
 1. Clone the repository:
    ```bash
-   git clone [repository URL]
-   cd [repository folder]
+   git clone https://github.com/Murtaza-mahudawala/Spam_Email_Detection.git
+   cd Spam_Email_Detection
    ```
-2. Install dependencies:
+
+2. Install required dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
+3. Run the application or Jupyter Notebook for exploration.
+
 ---
 
 ## Usage
-1. **Train the Model**:
-   - Run the notebook to preprocess data and train models.
-2. **Predict Spam Emails**:
-   - Use the `model.pkl` and `vectorizer.pkl` files for inference.
-   - Example code for inference:
-     ```python
-     import pickle
-     model = pickle.load(open('model.pkl', 'rb'))
-     vectorizer = pickle.load(open('vectorizer.pkl', 'rb'))
-     email = "Congratulations! You've won a $1000 gift card. Claim now!"
-     transformed_email = vectorizer.transform([email])
-     prediction = model.predict(transformed_email)
-     print("Spam" if prediction == 1 else "Ham")
-     ```
+
+1. Train the models using the provided script or notebook.
+2. Test with new email texts to classify them as spam or ham.
+3. Fine-tune parameters or explore advanced classifiers as needed.
 
 ---
 
-## Acknowledgments
-- Dataset sourced from [Mention source if available].
-- Libraries: Scikit-learn, NLTK, Matplotlib, Seaborn.
+## Results and Insights
+
+The Voting Classifier achieved the highest precision (99.17%) with excellent accuracy (98.16%). It combines the strengths of SVC, Naive Bayes, and Extra Trees to provide robust performance.
+
+---
+
+## Acknowledgements
+
+- Dataset sourced from open email datasets for spam detection.
+- Libraries used: `scikit-learn`, `nltk`, `seaborn`, `matplotlib`, `xgboost`.
+
+---
+
+## Future Work
+
+- Implement deep learning approaches like RNNs for email text classification.
+- Enhance feature extraction with BERT or other transformer models.
